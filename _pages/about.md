@@ -6,7 +6,7 @@ subtitle: <a href='https://www.linkedin.com/in/linh-dang-1a607631b/'>LinkedIn</a
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: IMG_8753.JPG
   image_circular: false # crops the image to make it circular
   
 ---
