@@ -2,7 +2,7 @@
   type: map
   contents:
     - name: Name
-      value: Linh N. Dang
+      value: Linh Dang
     - name: Email
       value: linhnguyennhatdang@gmail.com
     - name: URL
@@ -31,16 +31,6 @@
       description:
         - Conducted data science research with BASF through Purdue’s Data Mine program, applying statistical modeling and ML to real industry datasets.
         - Performed exploratory data analysis, feature selection, and predictive modeling on BASF datasets.
-
-- title: Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/DangNhatLinh/AutoRetrainML">AutoML Retraining Pipeline</a>
-      year: 2025
-      description: Built an automated Airflow pipeline for ETL, retraining, evaluation, and deployment, reducing manual ops and improving model reliability.
-    - title: <a href="https://github.com/DangNhatLinh/BrainTumorML">Brain Tumor Detection with Volumetric CNNs</a>
-      year: 2025
-      description: Developed a 3D CNN model to classify MRI brain scans and detect tumors using volumetric medical imaging data.
 
 - title: Academic Interests
   type: list
