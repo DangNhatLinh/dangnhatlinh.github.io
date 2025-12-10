@@ -14,11 +14,15 @@
   "work": [
     {
       "name": "FPT Software",
+      "startDate": "05.2025",
+      "endDate": "08.2025"
       "position": "Data Engineer Intern",
       "summary": "Developed Python and PySpark-based ETL pipelines for ingesting, transforming, and validating data across multiple internal systems."
     },
     {
       "name": "BASF",
+      "startDate": "08.2024",
+      "endDate": "12.2024"
       "position": "Undergraduate Data Science Researcher",
       "summary": "Conducted data science research with BASF through Purdue’s Data Mine program, applying statistical modeling and ML to real industry datasets."
     }
