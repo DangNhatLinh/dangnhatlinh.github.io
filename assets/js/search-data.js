@@ -402,9 +402,9 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+          section: "News",},{id: "projects-automl-retraining-pipeline",
+          title: 'AutoML Retraining Pipeline',
+          description: "An automated Airflow pipeline for ETL, retraining, evaluation, and deployment, reducing manual ops and improving model reliability.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-project-2",
