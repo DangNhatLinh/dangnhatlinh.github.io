@@ -407,8 +407,8 @@ ninja.data = [{
           description: "An automated Airflow pipeline for ETL, retraining, evaluation, and deployment, reducing manual ops and improving model reliability.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
-            },},{id: "projects-project-2",
-          title: 'project 2',
+            },},{id: "projects-brain-tumor-detection-with-volumetric-cnns",
+          title: 'Brain Tumor Detection with Volumetric CNNs',
           description: "a project with a background image and giscus comments",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_project/";
