@@ -385,9 +385,76 @@
     }
 
     /* mobile */
-    @media (max-width: 500px) {
-      .panel.active { grid-template-columns: 1fr; }
-      .sidebar { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    /* ── Mobile (≤640px) ──────────────────────────────────────────
+       Desktop styles above are untouched. Everything below only
+       applies on phones / narrow tablets in portrait. */
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.75rem;
+        background-attachment: scroll; /* fixed bg is jittery / sometimes broken on iOS Safari */
+      }
+
+      /* Hero: stack image on top, info bar below */
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-image {
+        aspect-ratio: 16/10; /* a touch shorter than 4:3 to save vertical space */
+      }
+      .hero-info {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-left: none;
+        border-top: 1.5px solid var(--border);
+        min-width: 0;
+        padding: 0.85rem 1rem;
+        gap: 0.8rem;
+      }
+      .hero-info .divider { display: none; }
+
+      /* Tabs row: shrink the giant horizontal button padding */
+      .tab-btn {
+        padding: 0.55rem 1.6rem;
+        font-size: 0.9rem;
+      }
+      .tabs-row { gap: 0.5rem; }
+
+      /* Panels: stack content above sidebar */
+      .panel.active {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      /* Sidebar: become a horizontal strip below the content */
+      .sidebar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 0.9rem;
+        min-width: 0;
+        gap: 1rem;
+      }
+      .sidebar-divider { display: none; } /* the horizontal border above replaces it */
+      .sidebar-circle { width: 32px; height: 32px; }
+      .site-nav {
+        flex-direction: row;
+        gap: 0.9rem;
+        align-items: center;
+      }
+      .site-nav a { font-size: 0.95rem; }
+
+      /* Links inline row: a touch tighter spacing on small screens */
+      .links-inline { gap: 0.45rem 0.55rem; font-size: 1rem; }
+
+      /* Projects standalone page: keep heading readable */
+      body.projects-mode #panel-projects .panel-text h3 {
+        font-size: 1.1rem;
+        letter-spacing: 0.18em;
+      }
     }
   </style>
 </head>
@@ -424,7 +491,7 @@
         <li>DS @ Purdue</li>
         <li>ML, AI, DS</li>
         <li>EN/VIE</li>
-        <li>Interests: Games, Classic Literature, After Effects </li>
+        <li>interests: video games, classic literature, after effects, tea</li>
       </ul>
     </div>
     <div class="sidebar">
@@ -451,7 +518,7 @@
         <li><strong>After Effects BeatSync —</strong> WIP</li>
         <li><strong>After Effects Smart Masking —</strong> WIP</li>
         <li><strong>3D Brain Tumor Segmentation with U-Net —</strong> A 3D U-Net in PyTorch + MONAI trained on four-channel brain MRI scans (128³ voxels), reaching 0.60 Dice on held-out volumes. The Dice number matters less to me than the upstream work — preprocessing, augmentation, and evaluation pipelines that made training stable and the results reproducible.</li>
-        <li><strong>Automated ML Pipeline —</strong> End-to-end pipeline in Python/Airflow/Docker/scikit-learn covering ingestion, retraining, evaluation, and artifact promotion. Saved the team ~8 hrs/week of manual cron-babysitting; the part I'm proud of is the validation gates that cut post-deploy rollbacks by 70% by failing bad models before they ever shipped.</li>
+        <li><strong>Automated ML Pipeline —</strong> End-to-end pipeline in Python + Airflow + Docker + scikit-learn covering ingestion, retraining, evaluation, and artifact promotion. Saved the team ~8 hrs/week of manual cron-babysitting; the part I'm proud of is the validation gates that cut post-deploy rollbacks by 70% by failing bad models before they ever shipped.</li>
         <li><strong>One-For-All —</strong> Hackathon build, 24 hours flat: a full-stack crisis-support web app pairing an AI chatbot with emergency hotlines and location-based resources for shelter, food, and crisis services. React + Flask + Groq + Google Maps — wanted to build something that could actually be useful in a hard moment, not just impressive on a demo screen.</li>
       </ul>
       <div class="home-btn-wrap">
