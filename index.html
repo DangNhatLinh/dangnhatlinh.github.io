@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>snow — personal site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #ffffff;
+      --text: #ffffff;
+      --muted: #b0b0b0;
+      --bg: #0e0e10;
+      --card-bg: #18181b;
+      --card-bg-soft: #1f1f23;
+      --border: #c8c8c8;
+      --tint-soft: rgba(255, 255, 255, 0.06);
+      --tint-strong: rgba(255, 255, 255, 0.12);
+      --font: 'Lucida Console', system-ui, -apple-system, sans-serif;
+      --card-width: 680px;
+    }
+
+    html, body {
+      min-height: 100vh;
+      /* Background holder: drop your image into the repo as `bg.jpg` (or change the
+         filename below). The solid color (--bg) shows through if the file isn't found,
+         so the page won't break before you upload.
+         To swap layout: change `cover` to `contain`, or remove `fixed` so the bg
+         scrolls with the page. */
+      background: var(--bg) url('bg.jpg') center / cover no-repeat fixed;
+      color: var(--text);
+      font-family: var(--font);
+      font-weight: 400;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    /* ── Main card ── */
+    .card {
+      width: min(var(--card-width), 100%);
+      margin: 0 auto;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero row ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      /* placeholder gradient standing in for the anime image */
+      background: linear-gradient(135deg, #0d1b3e 0%, #1a3a5c 40%, #0e2a45 70%, #07111e 100%);
+      position: relative;
+    }
+
+    /* starfield shimmer overlay */
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.9) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 80% 55%, rgba(255,255,255,0.8) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 70% 80%, rgba(180,220,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 85%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 50% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 25%, rgba(255,255,255,0.7) 0%, transparent 100%);
+      animation: twinkle 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.6; }
+      to   { opacity: 1; }
+    }
+
+    /* hand emoji placeholder */
+    .hero-image-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      z-index: 1;
+      filter: drop-shadow(0 0 12px rgba(100,180,255,0.6));
+    }
+
+    /* real image (used when an <img class="hero-photo"> replaces the placeholder) */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+    }
+    /* hide the starfield + emoji overlays when a real photo is present */
+    .hero-image:has(.hero-photo)::after,
+    .hero-image:has(.hero-photo) .hero-image-inner { display: none; }
+
+    .hero-info {
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      border-left: 1.5px solid var(--border);
+      min-width: 160px;
+    }
+
+    .kaomoji {
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    .handle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Tabs row ── */
+    .tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.85rem;
+    }
+
+    .tab-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tab-btn {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      padding: 0.6rem 5rem;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .tab-btn.active {
+      border-color: var(--accent);
+      background: var(--tint-strong);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--accent);
+      background: var(--tint-soft);
+    }
+
+    .chevron {
+      font-size: 1.2rem;
+      color: var(--accent);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s;
+    }
+    .chevron.open { transform: rotate(180deg); }
+
+    /* ── Content panel ── */
+    .panel {
+      display: none;
+      margin-top: 0.85rem;
+      animation: fadeUp 0.35s ease both;
+    }
+    .panel.active {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.2rem;
+    }
+
+    /* full-width panel (no sidebar) */
+    .panel.panel-wide.active {
+      grid-template-columns: 1fr;
+    }
+
+    /* projects bullet list spacing */
+    .panel-text ul.spaced li {
+      margin-bottom: 0.55rem;
+    }
+    .panel-text ul.spaced li:last-child { margin-bottom: 0; }
+
+    /* home button at bottom of projects */
+    .home-btn-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.6rem;
+    }
+
+    .home-btn {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--card-bg);
+      padding: 0.55rem 1.8rem;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .home-btn:hover {
+      border-color: var(--accent);
+      background: var(--tint-soft);
+    }
+
+    .panel-text h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+
+    .panel-text .rule {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 0.9rem;
+    }
+
+    .panel-text ul {
+      list-style: none;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .panel-text ul li::before {
+      content: '— ';
+      color: var(--text);
+    }
+
+    .panel-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .panel-text strong { font-weight: 700; color: var(--accent); }
+
+    .panel-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: opacity 0.2s;
+    }
+    .panel-text a:hover { opacity: 0.65; }
+
+    /* inline links row (Links panel) */
+    .links-inline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.7rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-top: 0.2rem;
+    }
+    .links-inline a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity 0.2s;
+    }
+    .links-inline a:hover { opacity: 0.65; }
+    .links-inline .sep {
+      color: var(--muted);
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    .links-note {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+
+    /* ── Sidebar (circles + nav) ── */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.7rem;
+      align-items: flex-end;
+      min-width: 160px;
+      border-left: 1px solid var(--border);
+      padding-left: 1.2rem;
+    }
+
+    .sidebar-circles {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .sidebar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+    }
+
+    .sidebar-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .site-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      align-items: flex-end;
+    }
+
+    .site-nav a {
+      font-size: 1rem;
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+    }
+    .site-nav a:hover { opacity: 0.65; }
+
+    /* ── Projects standalone mode ── */
+    body.projects-mode .hero,
+    body.projects-mode .tabs-row { display: none; }
+
+    body.projects-mode #panel-projects { margin-top: 0; }
+
+    body.projects-mode #panel-projects .panel-text h3 {
+      font-size: 1.3rem;
+      letter-spacing: 0.22em;
+      text-align: center;
+      margin-bottom: 0.9rem;
+    }
+    body.projects-mode #panel-projects .panel-text .rule {
+      margin-bottom: 1.4rem;
+    }
+
+    /* mobile */
+    @media (max-width: 500px) {
+      .panel.active { grid-template-columns: 1fr; }
+      .sidebar { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-image">
+      <!-- To use a real image, replace the line below with:
+           <img src="your-image.jpg" alt="" class="hero-photo"> -->
+      <div class="hero-image-inner">🤍</div>
+    </div>
+    <div class="hero-info">
+      <div class="kaomoji">✶⋆.˚</div>
+      <div class="divider"></div>
+      <div class="handle">@Linh Dang</div>
+    </div>
+  </div>
+
+  <!-- Tab selector row -->
+  <div class="tabs-row">
+    <div class="tab-line"></div>
+    <button class="tab-btn active" onclick="togglePanel()">about me</button>
+    <span class="chevron open" id="chevron" onclick="togglePanel()">∨</span>
+  </div>
+
+  <!-- Personal Info Panel -->
+  <div class="panel active" id="panel-personal">
+    <div class="panel-text">
+      <h3>Personal Info</h3>
+      <div class="rule"></div>
+      <ul>
+        <li>DS @ Purdue</li>
+        <li>ML, AI, DS</li>
+        <li>EN/VIE</li>
+        <li>Interests: Games, Classic Literature, After Effects </li>
+      </ul>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-circles">
+        <div class="sidebar-circle"></div>
+        <div class="sidebar-circle"></div>
+        <div class="sidebar-circle"></div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <nav class="site-nav">
+        <a onclick="switchTab('personal')">info</a>
+        <a onclick="switchTab('projects')">projects</a>
+        <a onclick="switchTab('links')">links</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Projects Panel (full width, no sidebar) -->
+  <div class="panel panel-wide" id="panel-projects">
+    <div class="panel-text">
+      <h3>Projects</h3>
+      <div class="rule"></div>
+      <ul class="spaced">
+        <li><strong>After Effects BeatSync —</strong> WIP</li>
+        <li><strong>After Effects Smart Masking —</strong> WIP</li>
+        <li><strong>3D Brain Tumor Segmentation with U-Net —</strong> A 3D U-Net in PyTorch + MONAI trained on four-channel brain MRI scans (128³ voxels), reaching 0.60 Dice on held-out volumes. The Dice number matters less to me than the upstream work — preprocessing, augmentation, and evaluation pipelines that made training stable and the results reproducible.</li>
+        <li><strong>Automated ML Pipeline —</strong> End-to-end pipeline in Python/Airflow/Docker/scikit-learn covering ingestion, retraining, evaluation, and artifact promotion. Saved the team ~8 hrs/week of manual cron-babysitting; the part I'm proud of is the validation gates that cut post-deploy rollbacks by 70% by failing bad models before they ever shipped.</li>
+        <li><strong>One-For-All —</strong> Hackathon build, 24 hours flat: a full-stack crisis-support web app pairing an AI chatbot with emergency hotlines and location-based resources for shelter, food, and crisis services. React + Flask + Groq + Google Maps — wanted to build something that could actually be useful in a hard moment, not just impressive on a demo screen.</li>
+      </ul>
+      <div class="home-btn-wrap">
+        <button class="home-btn" onclick="switchTab('personal')">← home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links Panel -->
+  <div class="panel" id="panel-links">
+    <div class="panel-text">
+      <h3>Links</h3>
+      <div class="rule"></div>
+      <div class="links-inline">
+        <a href="https://www.linkedin.com/in/linh-dang-1a607631b/" target="_blank" rel="noopener">linkedin</a>
+        <span class="sep">▸</span>
+        <a href="https://github.com/DangNhatLinh" target="_blank" rel="noopener">github</a>
+        <span class="sep">▸</span>
+        <a href="mailto:linhnguyennhatdang@gmail.com">email</a>
+      </div>
+      <p class="links-note">you can contact me via email if all else fails</p>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-circles">
+        <div class="sidebar-circle"></div>
+        <div class="sidebar-circle"></div>
+        <div class="sidebar-circle"></div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <nav class="site-nav">
+        <a onclick="switchTab('personal')">info</a>
+        <a onclick="switchTab('projects')">projects</a>
+        <a onclick="switchTab('links')">links</a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  let open = true;
+  let currentTab = 'personal';
+
+  function togglePanel() {
+    open = !open;
+    document.getElementById('chevron').classList.toggle('open', open);
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    if (open) {
+      const target = document.getElementById('panel-' + currentTab);
+      if (target) target.classList.add('active');
+    }
+  }
+
+  function switchTab(name) {
+    currentTab = name;
+    open = true;
+    document.getElementById('chevron').classList.add('open');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('panel-' + name);
+    if (target) target.classList.add('active');
+    document.body.classList.toggle('projects-mode', name === 'projects');
+  }
+</script>
+</body>
+</html>
